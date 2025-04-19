@@ -288,8 +288,12 @@ def edit_user(user_id):
     return render_template('users/form.html', form=form, title='Edit User')
 
 if __name__ == '__main__':
-    host = os.getenv('HOST', '127.0.0.1')
+    host = os.getenv('HOST', '0.0.0.0')  # Changed to 0.0.0.0 to allow external connections
     port = int(os.getenv('PORT', 5000))
-    debug = os.getenv('DEBUG', 'False').lower() == 'true'
+    debug = os.getenv('DEBUG', 'True').lower() == 'true'  # Changed default to True
+    
+    print(f"Starting server on {host}:{port}")
+    print(f"Access the application in your browser at: http://localhost:{port}")
+    print(f"Press CTRL+C to stop the server")
     
     app.run(host=host, port=port, debug=debug)

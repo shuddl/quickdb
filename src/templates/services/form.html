@@ -1,0 +1,78 @@
+{% extends "base.html" %}
+
+{% block title %}{{ title }} - {{ client.client_name }} - QuickDB{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="row mb-4">
+        <div class="col">
+            <h1>{{ title }}</h1>
+            <p class="lead">Client: {{ client.client_name }}</p>
+        </div>
+    </div>
+    
+    <div class="row">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-body">
+                    <form method="post">
+                        {{ form.csrf_token }}
+                        
+                        <div class="mb-3">
+                            <label for="service_name" class="form-label">Service Name *</label>
+                            {{ form.service_name(class="form-control", id="service_name") }}
+                            {% if form.service_name.errors %}
+                            <div class="text-danger">
+                                {% for error in form.service_name.errors %}
+                                {{ error }}
+                                {% endfor %}
+                            </div>
+                            {% endif %}
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label for="engagement_date" class="form-label">Engagement Date</label>
+                            {{ form.engagement_date(class="form-control", type="date", id="engagement_date") }}
+                            {% if form.engagement_date.errors %}
+                            <div class="text-danger">
+                                {% for error in form.engagement_date.errors %}
+                                {{ error }}
+                                {% endfor %}
+                            </div>
+                            {% endif %}
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label for="service_status" class="form-label">Service Status</label>
+                            {{ form.service_status(class="form-select", id="service_status") }}
+                        </div>
+                        
+                        <div class="d-flex justify-content-between">
+                            <a href="{{ url_for('view_client', client_id=client.id) }}" class="btn btn-outline-secondary">Cancel</a>
+                            <button type="submit" class="btn btn-primary">Save Service</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="mb-0">Instructions</h5>
+                </div>
+                <div class="card-body">
+                    <p>Fields marked with <strong>*</strong> are required.</p>
+                    <p>Service status determines the current phase of the service:</p>
+                    <ul>
+                        <li><strong>Planned</strong>: Service is scheduled but not yet started</li>
+                        <li><strong>In Progress</strong>: Service is currently being delivered</li>
+                        <li><strong>Completed</strong>: Service has been delivered successfully</li>
+                        <li><strong>Cancelled</strong>: Service has been cancelled</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

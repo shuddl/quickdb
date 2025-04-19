@@ -1,0 +1,77 @@
+{% extends "base.html" %}
+
+{% block title %}Dashboard - QuickDB{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="row mb-4">
+        <div class="col">
+            <h1>Dashboard</h1>
+            <p class="lead">Welcome to QuickDB Client Management System</p>
+        </div>
+    </div>
+    
+    <div class="row">
+        <div class="col-md-4 mb-4">
+            <div class="card h-100">
+                <div class="card-body text-center">
+                    <h5 class="card-title">Total Clients</h5>
+                    <h1 class="display-4">{{ client_count }}</h1>
+                    <a href="{{ url_for('clients') }}" class="btn btn-primary mt-3">View All Clients</a>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-md-4 mb-4">
+            <div class="card h-100">
+                <div class="card-body text-center">
+                    <h5 class="card-title">Active Clients</h5>
+                    <h1 class="display-4">{{ active_client_count }}</h1>
+                    <a href="{{ url_for('clients', status='Active') }}" class="btn btn-success mt-3">View Active Clients</a>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-md-4 mb-4">
+            <div class="card h-100">
+                <div class="card-body text-center">
+                    <h5 class="card-title">Prospects</h5>
+                    <h1 class="display-4">{{ prospects_count }}</h1>
+                    <a href="{{ url_for('clients', status='Prospect') }}" class="btn btn-warning mt-3">View Prospects</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="row mt-4">
+        <div class="col-md-6 mb-4">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="mb-0">Quick Actions</h5>
+                </div>
+                <div class="card-body">
+                    <div class="d-grid gap-2">
+                        <a href="{{ url_for('new_client') }}" class="btn btn-primary">Add New Client</a>
+                        {% if current_user.role == 'Admin' %}
+                        <a href="{{ url_for('new_user') }}" class="btn btn-secondary">Add New User</a>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-md-6 mb-4">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="mb-0">System Information</h5>
+                </div>
+                <div class="card-body">
+                    <p><strong>User:</strong> {{ current_user.username }}</p>
+                    <p><strong>Role:</strong> {{ current_user.role }}</p>
+                    <p><strong>Version:</strong> QuickDB v1.0</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

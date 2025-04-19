@@ -1,0 +1,92 @@
+{% extends "base.html" %}
+
+{% block title %}{{ title }} - QuickDB{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="row mb-4">
+        <div class="col">
+            <h1>{{ title }}</h1>
+        </div>
+    </div>
+    
+    <div class="row">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-body">
+                    <form method="post">
+                        {{ form.csrf_token }}
+                        
+                        <div class="mb-3">
+                            <label for="client_name" class="form-label">Client Name *</label>
+                            {{ form.client_name(class="form-control", id="client_name") }}
+                            {% if form.client_name.errors %}
+                            <div class="text-danger">
+                                {% for error in form.client_name.errors %}
+                                {{ error }}
+                                {% endfor %}
+                            </div>
+                            {% endif %}
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label for="primary_contact_name" class="form-label">Primary Contact Name</label>
+                            {{ form.primary_contact_name(class="form-control", id="primary_contact_name") }}
+                        </div>
+                        
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <label for="primary_contact_email" class="form-label">Contact Email</label>
+                                {{ form.primary_contact_email(class="form-control", id="primary_contact_email") }}
+                                {% if form.primary_contact_email.errors %}
+                                <div class="text-danger">
+                                    {% for error in form.primary_contact_email.errors %}
+                                    {{ error }}
+                                    {% endfor %}
+                                </div>
+                                {% endif %}
+                            </div>
+                            <div class="col-md-6">
+                                <label for="primary_contact_phone" class="form-label">Contact Phone</label>
+                                {{ form.primary_contact_phone(class="form-control", id="primary_contact_phone") }}
+                            </div>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label for="company_address" class="form-label">Company Address</label>
+                            {{ form.company_address(class="form-control", id="company_address", rows=3) }}
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label for="client_status" class="form-label">Client Status</label>
+                            {{ form.client_status(class="form-select", id="client_status") }}
+                        </div>
+                        
+                        <div class="d-flex justify-content-between">
+                            <a href="{% if request.referrer %}{{ request.referrer }}{% else %}{{ url_for('clients') }}{% endif %}" class="btn btn-outline-secondary">Cancel</a>
+                            <button type="submit" class="btn btn-primary">Save Client</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-md-4">
+            <div class="card mb-4">
+                <div class="card-header">
+                    <h5 class="mb-0">Instructions</h5>
+                </div>
+                <div class="card-body">
+                    <p>Fields marked with <strong>*</strong> are required.</p>
+                    <p>Client status determines how the client is categorized in the system:</p>
+                    <ul>
+                        <li><strong>Prospect</strong>: A potential client not yet engaged</li>
+                        <li><strong>Active</strong>: A current client with ongoing services</li>
+                        <li><strong>Inactive</strong>: A former client with no current services</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

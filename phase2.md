@@ -135,6 +135,63 @@ Features:
 ○ Use pg_dump or MongoDB Atlas for database backups.
 ○ Expose a REST API for developer access.
 
+## Development Environment Setup
+
+### Prerequisites
+- Node.js >= 18.18.0 (current project has v18.17.1 which is incompatible with required packages)
+- Git
+- PostgreSQL (for production database)
+- Docker (for containerization)
+
+### Setup Instructions
+
+1. **Update Node.js version**
+   ```bash
+   # Using nvm (Node Version Manager) - recommended
+   nvm install 18.18.0
+   nvm use 18.18.0
+   
+   # Verify installation
+   node -v  # Should output v18.18.0 or higher
+   ```
+
+2. **Create separate project directory**
+   ```bash
+   # Create a new directory to avoid conflicts with existing quickdb files
+   mkdir -p ~/Documents/GitHub/ai-workspace
+   cd ~/Documents/GitHub/ai-workspace
+   ```
+
+3. **Clone Chatbot UI repository**
+   ```bash
+   git clone https://github.com/mckaywrigley/chatbot-ui.git .
+   # Or use the latest version available
+   ```
+
+4. **Install dependencies**
+   ```bash
+   npm install
+   
+   # Install additional required packages
+   npm install express prisma @prisma/client jsonwebtoken bcrypt
+   ```
+
+5. **Configure package.json**
+   Ensure the following scripts are defined in package.json:
+   ```json
+   "scripts": {
+     "dev": "next dev",
+     "build": "next build",
+     "start": "next start",
+     "lint": "next lint"
+   }
+   ```
+
+6. **Run development server**
+   ```bash
+   npm run dev
+   ```
+
 ## Implementation Timeline
 
 ### Phase 1: Foundation & Core Features (Weeks 1-4)
